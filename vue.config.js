@@ -1,3 +1,7 @@
+const path = require('path')
+function resolve (dir) {
+  return path.join(__dirname, dir)
+}
 module.exports = {
   css: {
     loaderOptions: {
@@ -14,5 +18,9 @@ module.exports = {
       postCompile: true,
       theme: true
     }
+  },
+  chainWebpack (config) {
+    config.resolve.alias
+      .set('api', resolve('api/index.js'))
   }
 }

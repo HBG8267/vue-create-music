@@ -7,7 +7,7 @@ function get (url) {
     }).then((res) => {
       return res.data
     }).catch((err) => {
-      console.log('----获取资源失败----' + err)
+      console.log('----失败----' + err)
     })
   }
 }

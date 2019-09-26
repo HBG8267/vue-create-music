@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { get } from '../../../api/index.js'
+import { get } from 'api'
 export default {
   name: 'found',
   data: function () {
@@ -67,22 +67,30 @@ export default {
   methods: {
     changePage () {
       return 1
+    },
+    getSwiperData () {
+      let baseUrl = 'https://api.wulv5.com/music/'
+      let url = baseUrl + 'personalized/mv'
+      get(url)({}).then((res) => {
+        let result = res.result
+        result.forEach((item, index) => {
+          this.swiperData.push({
+            picUrl: item.picUrl
+          })
+        })
+      })
+    },
+    getSongData () {
+      let baseUrl = 'https://api.wulv5.com/music/'
+      let url = baseUrl + 'recommend/songs'
+      get(url)().then((res) => {
+        // console.log(res)
+      })
     }
   },
   mounted () {
-    let baseUrl = 'https://api.wulv5.com/music/'
-    let url = baseUrl + 'personalized/mv'
-    get(url)({
-    }).then((res) => {
-      let result = res.result
-      result.forEach((item, index) => {
-        this.swiperData.push({
-          picUrl: item.picUrl
-        })
-      })
-      console.log(this.swiperData)
-    })
-    console.log('width =', this.phoneWidth)
+    // this.getSwiperData()
+    // this.getSongData()
   }
 }
 </script>
