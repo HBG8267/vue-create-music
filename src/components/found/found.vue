@@ -1,5 +1,7 @@
+<script src="../../../vue.config.js"></script>
 <template>
   <div class="foundwrap">
+    <cube-scroll>
     <div class="slidewrap">
       <cube-slide ref="slide" :data="swiperData" @change="changePage">
         <cube-slide-item v-for="(item, index) in swiperData" :key="index">
@@ -19,23 +21,28 @@
     </ul>
     <div class="songwrap">
       <div class="head">
-        <div class="title">{{songwrap.title}}</div>
-        <div class="more">{{songwrap.more}}</div>
+        <div class="title">{{songWrap.title}}</div>
+        <div class="more">{{songWrap.more}}</div>
       </div>
       <ul class="content">
-        <li v-for="(item, index) in songwrap.songs" :key="index" class="block">
-          <div class="imgwrap"></div>
+        <li v-for="(item, index) in songWrap.songs" :key="index" class="block" @click="click(item.id)">
+          <div class="imgwrap">
+            <img :src="item.picUrl" alt="">
+          </div>
           <div class="text">
             {{item.name}}
           </div>
         </li>
       </ul>
     </div>
+    <router-link to="playDetail" class="link"> come to play</router-link>
+    </cube-scroll>
   </div>
 </template>
 
 <script>
 import { get } from 'api'
+
 export default {
   name: 'found',
   data: function () {
@@ -49,17 +56,10 @@ export default {
         { name: '电台' },
         { name: '直播' }
       ],
-      songwrap: {
+      songWrap: {
         title: '推荐歌单',
         more: '歌单广场',
         songs: [
-          { name: '每日推荐11111111111111111111111111111111111' },
-          { name: '歌单歌单歌单歌单歌单' },
-          { name: '排行榜啊哈佛啊好狗狗' },
-          { name: '电台' },
-          { name: '直播' },
-          { name: '电台' },
-          { name: '直播' }
         ]
       }
     }
@@ -81,16 +81,38 @@ export default {
       })
     },
     getSongData () {
+      console.log('getsong----------')
       let baseUrl = 'https://api.wulv5.com/music/'
-      let url = baseUrl + 'recommend/songs'
+      let url = baseUrl + 'personalized?limit=6'
       get(url)().then((res) => {
-        // console.log(res)
+        console.log(res)
+        this.songWrap.songs = res.result
+        console.log(this.songWrap)
+      })
+    },
+    login () {
+      console.log('login----------')
+      let phone = '18260095016'
+      let password = 'hubaogang'
+      let baseUrl = 'https://api.wulv5.com/music/'
+      let url = baseUrl + `login/cellphone?phone=${phone}&password=${password}`
+      get(url)().then((res) => {
+        console.log('登陆中', res)
+      })
+    },
+    click (id) {
+      this.$router.push({
+        name: 'playDetail',
+        params: {
+          id: id
+        }
       })
     }
   },
   mounted () {
-    // this.getSwiperData()
-    // this.getSongData()
+    this.login()
+    setTimeout(this.getSongData, 5000)
+    this.getSwiperData()
   }
 }
 </script>
@@ -156,6 +178,9 @@ export default {
           webkit-border-radius: 5px
           -moz-border-radius: 5px
           border-radius: 5px
+          img
+            width: 100%
+            height: 100%
         .text
           height: 40px
           overflow: hidden
@@ -165,5 +190,8 @@ export default {
           -webkit-line-clamp: 2
           white-space: pre-wrap
           font-size: 12px
-
+.link
+  display: block
+  height:100px
+  background-color: blue;
 </style>
