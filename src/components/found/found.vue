@@ -35,7 +35,6 @@
         </li>
       </ul>
     </div>
-    <router-link to="playDetail" class="link"> come to play</router-link>
     </cube-scroll>
   </div>
 </template>
@@ -57,7 +56,7 @@ export default {
         { name: '直播' }
       ],
       songWrap: {
-        title: '推荐歌单',
+        title: '推荐新音乐',
         more: '歌单广场',
         songs: [
         ]
@@ -80,15 +79,19 @@ export default {
         })
       })
     },
-    getSongData () {
+    getSongsData () {
       console.log('getsong----------')
       let baseUrl = 'https://api.wulv5.com/music/'
-      let url = baseUrl + 'personalized?limit=6'
+      let url = baseUrl + 'personalized/newsong'
       get(url)().then((res) => {
         console.log(res)
-        this.songWrap.songs = res.result
-        console.log(this.songWrap)
+        res.result.forEach((item, index) => {
+          let {id,name,song: {album: {picUrl}}} = item
+          console.log(id,name,picUrl)
+          this.songWrap.songs.push({id, name, picUrl})
+        })
       })
+      console.log('songs:',typeof this.songWrap.songs,this.songWrap.songs)
     },
     login () {
       console.log('login----------')
@@ -102,16 +105,16 @@ export default {
     },
     click (id) {
       this.$router.push({
-        name: 'playDetail',
+        name: 'playdetail',
         params: {
-          id: id
+          arrid: id
         }
-      })
+      }).catch((err) => {err})
     }
   },
   mounted () {
     this.login()
-    setTimeout(this.getSongData, 5000)
+    setTimeout(this.getSongsData, 1000)
     this.getSwiperData()
   }
 }
@@ -190,8 +193,4 @@ export default {
           -webkit-line-clamp: 2
           white-space: pre-wrap
           font-size: 12px
-.link
-  display: block
-  height:100px
-  background-color: blue;
 </style>

@@ -24,9 +24,7 @@
       >
         <!-- 关注 -->
         <cube-slide-item>
-          <cube-scroll :data="renderdata" :options="scrollOptions">
-            {{renderdata[0]}}
-          </cube-scroll>
+          <my></my>
         </cube-slide-item>
         <!-- 推荐 -->
         <cube-slide-item>
@@ -38,6 +36,7 @@
 </template>
 <script>
 import found from '../found/found.vue'
+import my from '../my/my.vue'
 export default {
   name: 'tab',
   data: function () {
@@ -50,8 +49,8 @@ export default {
           label: 'found'
         }
       ],
-      tabindex: 1,
-      slideindex: 1,
+      tabindex: 1, // 初始tab栏index
+      slideindex: 1, // 初始slideItem index
       slideOptions: {
         listenScroll: true,
         probeType: 3,
@@ -87,7 +86,8 @@ export default {
     }
   },
   components: {
-    found
+    found,
+    my
   }
 }
 </script>

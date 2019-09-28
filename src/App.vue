@@ -1,9 +1,13 @@
 <template>
-  <tab></tab>
+  <div class="wrap">
+    <tab></tab>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
 import tab from './components/tab/tab.vue'
+import my from './components/my/my.vue'
 import { get } from 'api'
 
 export default {
@@ -12,8 +16,6 @@ export default {
     return {
       userId: undefined
     }
-  },
-  mounted () {
   },
   methods: {
     login () {
@@ -45,7 +47,8 @@ export default {
     }
   },
   components: {
-    tab
+    tab,
+    my
   }
 }
 </script>

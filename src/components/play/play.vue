@@ -1,8 +1,10 @@
 <template>
   <div class="playwrap">
-    播放界面
+    <div @click="back">返回</div>
+    {{text}}
+    获得的数据{{id}}
+    <video :src="playUrl" controls="controls" ref="video" autoplay></video>
   </div>
-
 </template>
 
 <script>import { get } from 'api'
@@ -10,25 +12,39 @@ export default {
   name: 'play',
   data () {
     return {
-      id: undefined
+      id: '',
+      text: '这里是playdetail',
+      // playList: [{
+      //   coverImgUrl: '',
+      //   id: '',
+      //   name: '',
+      //   creator: {
+      //     nickname: '',
+      //     userId: ''
+      //   }
+      // }]
+      playUrl: ''
     }
   },
   methods: {
-    getSongUrl () {
-      console.log('getsongurl----------')
+    getSongUrl (id) {
+      console.log('getsongdetail----------')
       let baseUrl = 'https://api.wulv5.com/music/'
-      let url = baseUrl + `song/url?id=${this.id}`
+      let url = baseUrl + `/song/url?id=${id}`
       get(url)().then((res) => {
-        console.log(res)
+        this.playUrl = res.data[0].url
+        console.log(res, this.playUrl)
       })
     },
     getParams () {
-      this.id = this.$route.params.id
-      console.log(this.id)
+      return (this.id = this.$route.params.arrid)
+    },
+    back () {
+      this.$router.go(-1)
     }
   },
   mounted () {
-    this.getParams()
+    this.getSongUrl(this.getParams())
   }
 }
 </script>
@@ -38,7 +54,10 @@ export default {
     position: absolute
     top: 0
     left: 0
-    width: 500px
-    height: 500px
-    background-color: lightblue;
+    width: 100%
+    height: 100%
+    background-color: lightblue
+    .playlist
+      li
+        margin: 20px
 </style>
