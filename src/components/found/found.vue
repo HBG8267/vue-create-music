@@ -123,7 +123,8 @@ export default {
 <style lang="stylus" scoped>
 .foundwrap
   width: 100%
-  height: 100%
+  height: 600px
+  overflow: hidden
   .slidewrap
     width: 250px
     height: 120px
@@ -167,8 +168,8 @@ export default {
       flex-flow: row wrap
       width: 100%
       .block
-        width: 33%
-        //flex: 0 0 33%
+        //width: 33%
+        flex: 0 0 33%
         height: 180px // 最好固定宽高比
         box-sizing border-box
         padding: 5px

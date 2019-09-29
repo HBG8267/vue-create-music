@@ -2,13 +2,14 @@
   <div class="wrap">
     <tab></tab>
     <router-view></router-view>
+    <playfooter></playfooter>
   </div>
 </template>
 
 <script>
 import tab from './components/tab/tab.vue'
-import my from './components/my/my.vue'
 import { get } from 'api'
+import Playfooter from './components/playfooter/playfooter'
 
 export default {
   name: 'app',
@@ -16,6 +17,8 @@ export default {
     return {
       userId: undefined
     }
+  },
+  mounted () {
   },
   methods: {
     login () {
@@ -47,8 +50,8 @@ export default {
     }
   },
   components: {
-    tab,
-    my
+    Playfooter,
+    tab
   }
 }
 </script>
@@ -64,4 +67,5 @@ export default {
       -moz-osx-font-smoothing grayscale
       text-align center
       color #2c3e50
+      overflow: hidden
 </style>

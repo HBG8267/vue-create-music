@@ -101,5 +101,6 @@ export default {
     flex: 0 0 40px
   .tab-slide-container
     flex: 1
-    overflow: hidden
+    .cube-slide-item
+      height: 100%
 </style>
