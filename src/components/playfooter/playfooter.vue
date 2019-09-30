@@ -1,7 +1,6 @@
 <template>
   <div class="footerwrap">
     <img :src="picUrl" class="pic">
-    </img>
     <div class="text">
       <p class="name">歌曲名</p>
       <p class="author">作者</p>

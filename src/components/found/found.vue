@@ -85,13 +85,12 @@ export default {
       let url = baseUrl + 'personalized/newsong'
       get(url)().then((res) => {
         console.log(res)
-        res.result.forEach((item, index) => {
+        res.result.forEach((item) => {
           let {id,name,song: {album: {picUrl}}} = item
-          console.log(id,name,picUrl)
           this.songWrap.songs.push({id, name, picUrl})
         })
       })
-      console.log('songs:',typeof this.songWrap.songs,this.songWrap.songs)
+      // console.log('songs:',typeof this.songWrap.songs,this.songWrap.songs)
     },
     login () {
       console.log('login----------')
@@ -110,6 +109,9 @@ export default {
           arrid: id
         }
       }).catch((err) => {err})
+      this.$store.commit({
+        type: 'SHOW_PLAYDETAIL'
+      })
     }
   },
   mounted () {

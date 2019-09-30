@@ -2,7 +2,7 @@
   <div class="wrap">
     <tab></tab>
     <router-view></router-view>
-    <playfooter></playfooter>
+    <playfooter v-show="showfooter"></playfooter>
   </div>
 </template>
 
@@ -16,6 +16,14 @@ export default {
   data () {
     return {
       userId: undefined
+    }
+  },
+  computed: {
+    showfooter: {
+      get: function () {
+        console.log(!this.$store.state.isplaydetailshow)
+        return !this.$store.state.isplaydetailshow
+      }
     }
   },
   mounted () {
