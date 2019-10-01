@@ -3,6 +3,7 @@
     <tab></tab>
     <router-view></router-view>
     <playfooter v-show="showfooter"></playfooter>
+    <audio src="blank.mp3" id="musictest"></audio>
   </div>
 </template>
 
@@ -15,7 +16,8 @@ export default {
   name: 'app',
   data () {
     return {
-      userId: undefined
+      userId: undefined,
+      stop: false
     }
   },
   computed: {
@@ -27,8 +29,20 @@ export default {
     }
   },
   mounted () {
+    window.addEventListener('touched', this.playtest)
+  },
+  watch: {
+    stop () {
+      window.removeEventListener('touched', this.firstPlay)
+    }
   },
   methods: {
+    playtest () {
+      let music = document.querySelector('#musictest')
+      music.play()
+      console.log('---play')
+      this.stop = true
+    },
     login () {
       console.log('login----------')
       let phone = '18260095016'

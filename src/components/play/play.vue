@@ -10,11 +10,11 @@
       </div>
       <span class="end"></span>
     </div>
-    <audio :src="playUrl" controls></audio>
   </div>
 </template>
 
-<script>import { get } from 'api'
+<script>
+// import { get } from 'api'
 export default {
   name: 'play',
   data () {
@@ -26,16 +26,6 @@ export default {
     }
   },
   methods: {
-    getSongUrl (id) {
-      console.log('getsongdetail----------')
-      let baseUrl = 'https://api.wulv5.com/music/'
-      let url = baseUrl + `/song/url?id=${id}`
-      get(url)().then((res) => {
-        this.playUrl = res.data[0].url
-        this.size = res.data[0].size
-        console.log(res)
-      })
-    },
     getParams () {
       return (this.id = this.$route.params.arrid)
     },
@@ -61,13 +51,11 @@ export default {
     }
   },
   mounted () {
-    this.getSongUrl(this.getParams())
-    const audio = document.querySelector('audio')
+    const audio = this.$store.state.audio
     const spanStart = document.querySelector('.start')
     const spanEnd = document.querySelector('.end')
     const progressbar = document.querySelector('.progress-bar')
     const progressnow = document.querySelector('.now')
-    audio.play()
     audio.ontimeupdate = function () {
       function transform (time) {
         let min = Math.floor(time / 60)

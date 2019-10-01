@@ -112,12 +112,18 @@ export default {
       this.$store.commit({
         type: 'SHOW_PLAYDETAIL'
       })
+      this.$store.commit({
+        type: 'GET_PLAYURL',
+        id: id
+      })
+      this.$store.state.audio.play()
     }
   },
   mounted () {
     this.login()
     setTimeout(this.getSongsData, 1000)
     this.getSwiperData()
+    console.log(this.$store.state)
   }
 }
 </script>
