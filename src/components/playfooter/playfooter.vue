@@ -5,8 +5,12 @@
       <p class="name">歌曲名</p>
       <p class="author">作者</p>
     </div>
-    <div class="control">开始</div>
-    <div class="detail">详情</div>
+    <div class="control">
+      <span class="iconfont icon-bofang"></span>
+    </div>
+    <div class="detail">
+      <span class="iconfont icon-category"></span>
+    </div>
   </div>
 </template>
 

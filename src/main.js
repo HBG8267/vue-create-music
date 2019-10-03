@@ -4,6 +4,7 @@ import App from './App.vue'
 import store from './store'
 import VueRouter from 'vue-router'
 import playdetail from './components/play/play.vue'
+import './icon/iconfont.css'
 
 Vue.use(VueRouter)
 Vue.config.productionTip = false

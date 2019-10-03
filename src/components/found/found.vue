@@ -112,11 +112,11 @@ export default {
       this.$store.commit({
         type: 'SHOW_PLAYDETAIL'
       })
-      this.$store.commit({
+      this.$store.dispatch({
         type: 'GET_PLAYURL',
         id: id
       })
-      this.$store.state.audio.play()
+      this.$store.commit('PLAY')
     }
   },
   mounted () {

@@ -3,6 +3,10 @@ import Vuex from 'vuex'
 import { get } from 'api'
 Vue.use(Vuex)
 
+let audio = document.createElement('audio')
+audio.controls = true
+document.body.appendChild(audio)
+
 export default new Vuex.Store({
   state: {
     song: {
@@ -10,9 +14,20 @@ export default new Vuex.Store({
       name: '0',
       picUrl: ''
     },
-    songList: [],
+    songList: [
+      {
+        id: 1,
+        name: '11111',
+        picUrl: ''
+      },
+      {
+        id: 2,
+        name: '222',
+        picUrl: ''
+      }
+    ],
     isplaydetailshow: false,
-    audio: document.createElement('audio'),
+    audio: audio,
     playUrl: ''
   },
   mutations: {
@@ -29,19 +44,35 @@ export default new Vuex.Store({
       console.log('CLOSE_PLAYDETAIL')
       return (state.isplaydetailshow = false)
     },
+    SET_URL (state, params) {
+      state.audio.src = params.url
+      return true
+    },
+    PLAY (state) {
+      console.log('----PLAY----')
+      state.audio.play()
+      return true
+    },
+    PAUSE (state) {
+      console.log('---PAUSE----')
+      state.audio.pause()
+      return true
+    }
+  },
+  actions: {
     GET_PLAYURL (state, params) {
       console.log('getplayurl----------', params)
       let baseUrl = 'https://api.wulv5.com/music/'
       let url = baseUrl + `song/url?id=${params.id}`
       get(url)().then((res) => {
         state.playUrl = res.data[0].url
-        state.audio.src = state.playUrl
-        console.log(res)
+        console.log(state.playUrl)
+        this.commit({
+          type: 'SET_URL',
+          url: state.playUrl
+        })
       })
       return state.playUrl
     }
-  },
-  actions: {
-
   }
 })
