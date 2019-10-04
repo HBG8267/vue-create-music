@@ -27,10 +27,14 @@ export default new Vuex.Store({
       }
     ],
     isplaydetailshow: false,
+    showlist: false,
     audio: audio,
     playUrl: ''
   },
   mutations: {
+    CONTROL_LIST (state) {
+      return (state.showlist = !state.showlist)
+    },
     PUSH_SONG (state, song) {
       console.log('PUSH_SONG')
       state.songList.push(song)

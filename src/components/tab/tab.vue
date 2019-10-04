@@ -1,5 +1,6 @@
 <template>
   <div class="tabwrap">
+    <span class="iconfont icon-category"></span>
     <cube-tab-bar
       ref="tabNav"
       v-model="tabindex"
@@ -12,6 +13,7 @@
         {{item.label}}
       </cube-tab>
     </cube-tab-bar>
+      <span class="iconfont icon-sousuo" @click="turnToSearch"></span>
     <div class="tab-slide-container">
       <cube-slide
         ref="slide"
@@ -83,6 +85,11 @@ export default {
     },
     changePage (value) {
       this.tabindex = value
+    },
+    turnToSearch () {
+      this.$router.push({
+        name: 'search'
+      })
     }
   },
   components: {
@@ -97,8 +104,22 @@ export default {
   flex-direction: column
   width: 100%
   height: 100%
+  .iconfont
+    position:absolute
+    top: 0
+    width: 10%
+    font-size: 20px
+    text-align: center
+    line-height: 40px
+  .icon-category
+    left: 5px
+  .icon-sousuo
+    right: 5px
   .cube-tab-bar
     flex: 0 0 40px
+    justify-content: center
+    width: 80%
+    transform: translateX(10%)
   .tab-slide-container
     flex: 1
     .cube-slide-item

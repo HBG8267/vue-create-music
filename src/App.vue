@@ -3,7 +3,7 @@
     <tab></tab>
     <router-view></router-view>
     <playfooter v-show="false"></playfooter>
-    <songlist></songlist>
+    <songlist v-show="showlist"></songlist>
   </div>
 </template>
 
@@ -24,6 +24,12 @@ export default {
       get: function () {
         console.log(!this.$store.state.isplaydetailshow)
         return !this.$store.state.isplaydetailshow
+      }
+    },
+    showlist: {
+      get: function () {
+        console.log('change show list----')
+        return this.$store.state.showlist
       }
     }
   },
@@ -80,9 +86,8 @@ export default {
 }
 </script>
 <style lang="stylus">
-  html,body,#app{
-    height: 100%;
-  }
+  html,body,#app
+    height: 100%
   body
     margin: 8px
     #app
@@ -92,4 +97,6 @@ export default {
       text-align center
       color #2c3e50
       overflow: hidden
+  .wrap
+    position:relative
 </style>

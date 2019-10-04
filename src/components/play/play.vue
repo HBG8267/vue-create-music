@@ -21,13 +21,13 @@
           <div class="down ico">
             <span class="iconfont icon-btn_prestep"></span>
           </div>
-          <div class="play ico">
+          <div class="play ico" @click="control">
             <span class="iconfont icon-bofang"></span>
           </div>
           <div class="up ico">
             <span class="iconfont icon-btn_nextstep"></span>
           </div>
-          <div class="detail ico">
+          <div class="detail ico" @click="CONTROL_LIST">
             <span class="iconfont icon-category"></span>
           </div>
         </div>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState, mapMutations } from "vuex"
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'play',
@@ -98,10 +98,18 @@ export default {
         audio.currentTime = Math.floor(perc * audio.duration)
       }
     },
+    control () {
+      let ispaused = this.audio.paused
+      if (ispaused) {
+        this['PLAY']()
+      } else {
+        this['PAUSE']()
+      }
+    },
     back () {
       this.$router.go(-1)
     },
-    ...mapMutations(['PLAY', 'PAUSE'])
+    ...mapMutations(['PLAY', 'PAUSE', 'CONTROL_LIST'])
   },
   mounted () {
     this.setcontrols()
@@ -119,7 +127,7 @@ export default {
     width: 375px
     height: 667px
     color: #fffdef
-    background-color: rgb(0, 0, 0)
+    background-color: red
     .bg
       display: flex
       flex-direction: column

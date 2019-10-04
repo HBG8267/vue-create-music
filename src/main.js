@@ -4,6 +4,7 @@ import App from './App.vue'
 import store from './store'
 import VueRouter from 'vue-router'
 import playdetail from './components/play/play.vue'
+import search from './components/search/search'
 import './icon/iconfont.css'
 
 Vue.use(VueRouter)
@@ -14,6 +15,11 @@ const routes = [
     path: '/playdetail',
     name: 'playdetail',
     component: playdetail
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: search
   }
 ]
 const router = new VueRouter({

@@ -41,6 +41,13 @@
       "unicode_decimal": 58887
     },
     {
+      "icon_id": "4185596",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
       "icon_id": "4443235",
       "name": "每日推荐-01",
       "font_class": "meirituijian-",
