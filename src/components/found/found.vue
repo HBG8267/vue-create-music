@@ -25,7 +25,7 @@
         <div class="more">{{songWrap.more}}</div>
       </div>
       <ul class="content">
-        <li v-for="(item, index) in songWrap.songs" :key="index" class="block" @click="click(item.id)">
+        <li v-for="(item, index) in songWrap.songs" :key="index" class="block" @click.once="click(item.id)">
           <div class="imgwrap">
             <img :src="item.picUrl" alt="">
           </div>
@@ -84,7 +84,7 @@ export default {
       let baseUrl = 'https://api.wulv5.com/music/'
       let url = baseUrl + 'personalized/newsong'
       get(url)().then((res) => {
-        console.log(res)
+        console.log('推荐新音乐',res)
         res.result.forEach((item) => {
           let {id,name,song: {album: {picUrl}}} = item
           this.songWrap.songs.push({id, name, picUrl})
@@ -92,38 +92,36 @@ export default {
       })
       // console.log('songs:',typeof this.songWrap.songs,this.songWrap.songs)
     },
-    login () {
-      console.log('login----------')
-      let phone = '18260095016'
-      let password = 'hubaogang'
-      let baseUrl = 'https://api.wulv5.com/music/'
-      let url = baseUrl + `login/cellphone?phone=${phone}&password=${password}`
-      get(url)().then((res) => {
-        console.log('登陆中', res)
-      })
-    },
+    // login () {
+    //   console.log('login----------')
+    //   let phone = '18260095016'
+    //   let password = 'hubaogang'
+    //   let baseUrl = 'https://api.wulv5.com/music/'
+    //   let url = baseUrl + `login/cellphone?phone=${phone}&password=${password}`
+    //   get(url)().then((res) => {
+    //     console.log('登陆中', res)
+    //   })
+    // },
     click (id) {
-      this.$router.push({
+      this.$router.push({ // 页面跳转
         name: 'playdetail',
         params: {
           arrid: id
         }
       }).catch((err) => {err})
-      this.$store.commit({
+      this.$store.commit({ // 打开播放详情，同时关闭playfooter
         type: 'SHOW_PLAYDETAIL'
       })
       this.$store.dispatch({
-        type: 'GET_PLAYURL',
+        type: 'CREAT_SONG',
         id: id
       })
-      this.$store.commit('PLAY')
     }
   },
   mounted () {
-    this.login()
-    setTimeout(this.getSongsData, 1000)
+    // this.login()
+    this.getSongsData()
     this.getSwiperData()
-    console.log(this.$store.state)
   }
 }
 </script>

@@ -40,10 +40,9 @@ export default {
   },
   methods: {
     playtest () {
+      console.log('触发了touchend')
       let wrap = document.querySelector('.wrap')
-      this.$store.state.audio.src = 'https://webfs.yun.kugou.com/201910031436/a778ebf7fe361719fb8c4e2f2e9968df/G161/M07/1C/13/4Q0DAFy3B5-AWzIuAEBDfYVnMEI672.mp3'
-      console.log('---解决chrome不能自动播放---------------')
-      this.$store.state.audio.play()
+      this.$store.commit('PLAY')
       wrap.removeEventListener('touchend', this.playtest)
       setTimeout(() => {
         console.log('--播放成功，现在停止')
@@ -96,7 +95,9 @@ export default {
       -moz-osx-font-smoothing grayscale
       text-align center
       color #2c3e50
-      overflow: hidden
   .wrap
     position:relative
+    width: 100%
+    height: 100%
+    overflow: hidden
 </style>

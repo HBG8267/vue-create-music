@@ -9,7 +9,7 @@
           列表循环
         </div>
         <div class="clearall">
-          <span class="iconfont icon-lajixiang"></span>
+          <span class="iconfont icon-lajixiang" @click="song"></span>
         </div>
         <div class="collectall">
           <span class="iconfont icon-tianjia"></span>
@@ -17,9 +17,11 @@
         </div>
       </div>
       <ul class="content">
-        <li v-for="(item, index) in songList" :key="index" class="single">
-          <div class="name">{{item.name}}</div>
-          <div class="author"></div>
+        <li v-for="(item, index) in songList" :key="index" class="single" @click="PLAY(item.playUrl)">
+          <span class="name">{{item.name}}</span>
+          <span class="author" v-for="(childItem, childIndex) in item.author" :key="childIndex">
+            {{childItem.name}}
+          </span>
           <span class="iconfont icon-chuyidong"></span>
         </li>
       </ul>
@@ -39,17 +41,14 @@ export default {
     ...mapState(['songList', 'showlist'])
   },
   methods: {
-    ...mapMutations(['CONTROL_LIST'])
+    song () {
+      console.log('songlist----', this.songList)
+    },
+    ...mapMutations(['CONTROL_LIST', 'PLAY'])
   },
   watch: {
     showlist (newvalue, oldvalue) {
-      if (newvalue === true) {
-        console.log('true')
-        this.$refs.listbox.style.transform = 'translateY(-300px)'
-      } else {
-        console.log('false')
-        this.$refs.listbox.style.transform = ''
-      }
+      this.$refs.listbox.style.transform = newvalue ? 'translateY(-300px)' : ''
       console.log('watch---')
     }
   }
@@ -104,12 +103,17 @@ export default {
     .content
       margin: 5px 15px
       .single
-        height: 20px
-        line-height: 20px
+        height: 30px
+        margin: 5px 0
+        overflow: hidden
+        text-overflow:ellipsis
+        white-space: nowrap
         .name
-          float: left
-        .autohor
-          float: left
+          font-size: 16px
+          margin-right: 20px
+        .author
+          font-size: 12px
+          color: #999
         .iconfont
           float: right
 </style>

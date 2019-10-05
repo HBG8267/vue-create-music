@@ -120,10 +120,8 @@ export default {
 <style lang="stylus" scoped>
   .playwrap
     position: absolute
-    box-sizing: border-box
     top: 0
     left: 0
-    padding: 10px
     width: 375px
     height: 667px
     color: #fffdef
