@@ -1,0 +1,17 @@
+遇到的问题
+1.布局（可优化）
+#app下的子标签都是100%，body height 100%
+组件内 多运用flex布局
+四周留白（美观） body：margin：8px
+2.router（songlist、playfooter、sousuo页面）
+router-view 直接放在了#app下
+布局采用绝对定位
+3.audio
+vuex中创建了一个audio标签，挂载到body下,主要的操作函数都在vuex中
+4.主要数据格式
+song={id，name，author=[{id,name}],picUrl,playUrl}
+5.播放操作
+一般是通过CREAT_SONG(id)，创建一个song对象，内部unshift到songlist中，再调用PLAY函数
+6.chrome不能自动播放（老是出问题)
+songlist预置了一条信息，监听touchend事件，触发PLAY函数
+7.数据请求次数多，异步操作时间长（不流畅）尝试数据缓存
